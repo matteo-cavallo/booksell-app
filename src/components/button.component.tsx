@@ -21,8 +21,19 @@ export const ButtonComponent: FC<ButtonComponentProps> = (props) => {
     // If provided, titleColor will be overwritten
     const titleColor = props.titleColor || "#FFF"
 
-    return (
-        <TouchableOpacity onPress={props.onPress} style={[styles.container, props.customStyle]}>
+    // Background color
+    const backgroundColor = !props.disabled ? Theme.Colors.accent : Theme.Colors.accentDisabled
+
+
+        return (
+        <TouchableOpacity onPress={props.onPress}
+                          style={[
+                              {backgroundColor: backgroundColor},
+                              styles.container,
+                              props.customStyle,
+                              ]}
+                          {...props}
+        >
             <Text style={[styles.text, {color: titleColor}]}>{props.title}</Text>
         </TouchableOpacity>
     )
@@ -31,7 +42,6 @@ export const ButtonComponent: FC<ButtonComponentProps> = (props) => {
 const styles = StyleSheet.create({
     container: {
         height: 50,
-        backgroundColor: Theme.Colors.accent,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 16,
