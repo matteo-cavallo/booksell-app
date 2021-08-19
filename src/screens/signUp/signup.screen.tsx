@@ -76,22 +76,22 @@ export const SignUpScreen: FC<Props> = ({navigation}) => {
                                value={email}
                                onChangeText={setEmail}
                                style={Theme.Styles.topTextField}
-                               autoCapitalize={"none"}
                                textContentType={"emailAddress"}
+                               autoCapitalize={"none"}
                     />
                     <TextInput placeholder={"Password"}
                                value={password}
                                onChangeText={setPassword}
                                secureTextEntry={true}
                                style={Theme.Styles.centerTextField}
-                               textContentType={"newPassword"}
+                               //textContentType={"newPassword"}
                     />
                     <TextInput placeholder={"Conferma password"}
                                value={confirmPassword}
                                onChangeText={setConfirmPassword}
                                secureTextEntry={true}
                                style={Theme.Styles.bottomTextField}
-                               textContentType={"newPassword"}
+                               //textContentType={"newPassword"}
                     />
                     <ButtonComponent title={"Crea profilo"} onPress={handleSignUp} disabled={!canSignUp} customStyle={{marginTop: 16}}/>
                 </View>
