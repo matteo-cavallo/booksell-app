@@ -1,6 +1,7 @@
 import {FBAuth} from "./firebase.config";
 import {useEffect, useState} from "react";
 import firebase from "firebase/app";
+import {useDispatch} from "react-redux";
 
 /**
  * Hook that is usefull to check if user is logged in.

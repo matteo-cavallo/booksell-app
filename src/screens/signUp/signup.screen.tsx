@@ -18,6 +18,8 @@ import { Ionicons } from '@expo/vector-icons';
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../../App";
 import {FBAuth} from "../../firebase/firebase.config";
+import {useDispatch} from "react-redux";
+import {AuthenticationActions} from "../../store/authentication/authentication.actions";
 
 
 type SignUpScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Signup">
@@ -27,6 +29,8 @@ type Props = {
 
 export const SignUpScreen: FC<Props> = ({navigation}) => {
 
+    const dispatch = useDispatch()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -35,19 +39,10 @@ export const SignUpScreen: FC<Props> = ({navigation}) => {
 
     function handleSignUp(){
         // Login with Email and Password
-        FBAuth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in
-                var user = userCredential.user;
-
-                // todo: Implement LoggedAction
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ..
-                Alert.alert("Errore nella registrazione", errorMessage)
-            });
+        dispatch(AuthenticationActions.signUp({
+            email,
+            password
+        }))
     }
 
     // Check if SignUp is Enabled

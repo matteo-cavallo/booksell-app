@@ -6,6 +6,8 @@ import {useNavigation} from '@react-navigation/native'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack'
 import {RootStackParamList} from "../../../App";
 import {FBAuth} from "../../firebase/firebase.config";
+import {useDispatch} from "react-redux";
+import {AuthenticationActions} from "../../store/authentication/authentication.actions";
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Login">
 type Props = {
@@ -13,6 +15,8 @@ type Props = {
 }
 
 export const LoginScreen: FC<Props> = ({navigation}) => {
+
+    const dispatch = useDispatch()
 
     // Form Data
     const [email, setEmail] = useState("")
@@ -22,20 +26,10 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
 
     function handleLogin(){
         // Login with Email and Password
-        FBAuth.signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in
-                var user = userCredential.user;
-                console.log("\nUser logged in successfully ")
-                console.log(`Email: ${user?.email}`)
-                console.log(`ID: ${user?.uid}`)
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log("\nError logging in.\nWith Error: ", errorMessage)
-                Alert.alert("Errore login", errorMessage)
-            });
+        dispatch(AuthenticationActions.login({
+            email,
+            password
+        }))
     }
 
     // Check if Login is Enabled
