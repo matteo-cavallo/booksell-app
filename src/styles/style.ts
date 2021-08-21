@@ -14,7 +14,7 @@ const Styles = StyleSheet.create({
     },
     largeTitle: {
         fontSize: 34,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
 
     // Components

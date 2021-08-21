@@ -20,9 +20,10 @@ import {RootStackParamList} from "../../../App";
 import {FBAuth} from "../../firebase/firebase.config";
 import {useDispatch} from "react-redux";
 import {AuthenticationActions} from "../../store/authentication/authentication.actions";
+import {LoginAndRegistrationProps} from "./loginAndRegistration.stack";
 
 
-type SignUpScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Signup">
+type SignUpScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationProps, "SignUp">
 type Props = {
     navigation: SignUpScreenNavigationProp
 }
@@ -61,11 +62,6 @@ export const SignUpScreen: FC<Props> = ({navigation}) => {
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-                    <Ionicons name="chevron-back" size={24} color={Theme.Colors.accent}/>
-                    <Text style={[Theme.Styles.body, {color: Theme.Colors.accent}]}>Login</Text>
-                </TouchableOpacity>
-                <Text style={Theme.Styles.largeTitle}>Crea un nuovo profilo</Text>
                 <View style={styles.form}>
                     <TextInput placeholder={"Email"}
                                value={email}
@@ -106,8 +102,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     form: {
-        marginTop: 32,
-        marginBottom: 16,
+        marginVertical: 16,
         width: '100%'
     },
     backButton: {

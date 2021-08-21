@@ -1,52 +1,66 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {LoginScreen} from "./src/screens/login/login.screen";
-import {NavigationContainer} from "@react-navigation/native";
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {LoginScreen} from "./src/screens/loginAndRegistration/login.screen";
+import {DarkTheme, DefaultTheme, NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {SignUpScreen} from "./src/screens/signUp/signup.screen";
 import {AuthService, useCurrentUser} from "./src/firebase/auth.service";
-import {HomeScreen} from "./src/screens/home/home.screen";
 import {SplashScreen} from "./src/screens/splashScreen/splashScreen";
 import {Provider, useSelector} from "react-redux";
 import {store} from "./src/store/config";
-import {UserSelector} from "./src/store/user/userSlice";
+import {MainTabNavigator} from "./src/screens/tabs/mainTabNavigator";
+import {LoginAndRegistrationStackScreen} from "./src/screens/loginAndRegistration/loginAndRegistration.stack";
+
 
 export type RootStackParamList = {
-    Login: undefined;
-    Signup: undefined;
-    Home: undefined;
+    SplashScreen: undefined;
+    LoginAndRegistration: undefined
+    MainTabNavigator: undefined;
 };
 
 export default function App() {
+
+    const SPLASHSCREEN_DURATION = 1000 // ms
+    const colorScheme = useColorScheme()
+
+    useEffect(() => {
+        console.log(colorScheme)
+    },[colorScheme])
 
 
     const {isLoading, isSignedIn} = useCurrentUser()
     const RootStack = createNativeStackNavigator<RootStackParamList>()
 
+    const [showApp, setShowApp] = useState(false)
+
     // Splash Screen
-    if( isLoading ) {
-        return <SplashScreen />
+    if( isLoading || !showApp ) {
+        setTimeout(() => {
+            setShowApp(true)
+        },SPLASHSCREEN_DURATION)
     }
 
     return (
-        // maybe refactor to a better and cleaner structure
+        // todo: maybe refactor to a better and cleaner structure
         <Provider store={store}>
-            <NavigationContainer>
+            <NavigationContainer theme={colorScheme == 'light' ? DefaultTheme : DarkTheme}>
                 <RootStack.Navigator screenOptions={{headerShown: false}}>
+                    {
+                        // The SplashScreen is shown either if authentication is in
+                        // progress or the timeout isn't finished.
+                        (!showApp || isLoading) && <RootStack.Screen name={"SplashScreen"} component={SplashScreen} options={{animation: "flip"}}/>
+                    }
                     {
                         // If the User is logged in show root stack, otherwise show login.
                         isSignedIn ? (
                             <>
-                                <RootStack.Screen name={"Home"} component={HomeScreen} />
+                                <RootStack.Screen name={"MainTabNavigator"} component={MainTabNavigator} />
                             </>
                         ) : (
                             <>
-                                <RootStack.Screen name={"Login"} component={LoginScreen} options={{
-                                    animationTypeForReplace: !isSignedIn ? "pop" : "push"
+                                <RootStack.Screen name={"LoginAndRegistration"} component={LoginAndRegistrationStackScreen} options={{
+                                    animationTypeForReplace: !isSignedIn ? "pop" : "push",
                                 }}
                                 />
-                                <RootStack.Screen name={"Signup"} component={SignUpScreen} />
                             </>
                         )
                     }
@@ -55,12 +69,3 @@ export default function App() {
         </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

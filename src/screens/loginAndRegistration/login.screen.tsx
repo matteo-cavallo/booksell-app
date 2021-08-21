@@ -1,4 +1,13 @@
-import {Alert, Button, KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+    Alert,
+    Button,
+    KeyboardAvoidingView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    View
+} from 'react-native';
 import React, {FC, useEffect, useState} from "react";
 import {ButtonComponent} from "../../components/button.component";
 import {Theme} from "../../styles/style";
@@ -8,8 +17,10 @@ import {RootStackParamList} from "../../../App";
 import {FBAuth} from "../../firebase/firebase.config";
 import {useDispatch} from "react-redux";
 import {AuthenticationActions} from "../../store/authentication/authentication.actions";
+import {LoginAndRegistrationProps} from "./loginAndRegistration.stack";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Login">
+type LoginScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationProps, "Login">
 type Props = {
     navigation: LoginScreenNavigationProp
 }
@@ -41,11 +52,10 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
         setCanLogin(false)
     },[email, password])
 
+
     return (
-        <SafeAreaView>
             <View style={styles.container}>
-                <Text style={Theme.Styles.largeTitle}>Entra in BookSell</Text>
-                <View style={styles.textFieldsContainer}>
+                <View style={styles.form}>
                     <TextInput placeholder={"Email"}
                                value={email}
                                onChangeText={setEmail}
@@ -63,15 +73,10 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
                     />
                 </View>
                 <View>
-                    <ButtonComponent title={"Login"} onPress={handleLogin} disabled={!canLogin}/>
-                    <ButtonComponent title={"Crea un nuovo profilo"}
-                                     customStyle={{marginTop: 8, backgroundColor: Theme.Colors.lightGray}}
-                                     titleColor={Theme.Colors.primary}
-                                     onPress={() => navigation.navigate("Signup")}
-                    />
+                    <ButtonComponent title={"Login"} onPress={handleLogin} disabled={!canLogin} customStyle={{marginBottom: 16}}/>
+                    <Button title={"Non hai un profilo?"} onPress={() => navigation.navigate("SignUp")}/>
                 </View>
             </View>
-        </SafeAreaView>
     )
 }
 
@@ -83,8 +88,7 @@ const styles = StyleSheet.create({
         fontSize: 34,
         fontWeight: "bold"
     },
-    textFieldsContainer: {
-        marginTop: 32,
+    form: {
         marginBottom: 16
     }
 })
