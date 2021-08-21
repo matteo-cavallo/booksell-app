@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     form: {
-        marginVertical: 16,
         width: '100%'
     },
     backButton: {

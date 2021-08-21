@@ -54,7 +54,10 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
 
 
     return (
+        <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
+                <Text style={[Theme.Styles.largeTitle, styles.title]}>Bookshare</Text>
+                <Text style={[Theme.Styles.body, styles.subtitle]}>Un posto dove puoi vendere e comprare i libri che ami.</Text>
                 <View style={styles.form}>
                     <TextInput placeholder={"Email"}
                                value={email}
@@ -77,18 +80,25 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
                     <Button title={"Non hai un profilo?"} onPress={() => navigation.navigate("SignUp")}/>
                 </View>
             </View>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16
-    },
-    title: {
-        fontSize: 34,
-        fontWeight: "bold"
+        padding: 16,
     },
     form: {
         marginBottom: 16
+    },
+    title: {
+       textAlign: "center",
+        marginBottom: 8
+    },
+    subtitle: {
+        textAlign: "center",
+        marginBottom: 24,
+        color: "#333",
+        paddingHorizontal: 16
     }
 })

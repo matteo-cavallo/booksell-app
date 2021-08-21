@@ -6,7 +6,6 @@ import {
 import React from "react";
 import {SignUpScreen} from "./signup.screen";
 import {RootStackParamList} from "../../../App";
-import {SignUpSecondStep} from "../signUp/secondStep.screen";
 import {LoginScreen} from "./login.screen";
 import {ScreenStackProps} from "react-native-screens";
 
@@ -28,7 +27,7 @@ export const LoginAndRegistrationStackScreen = () => {
 }
 
 const screenOptions: NativeStackNavigationOptions = {
-    headerLargeTitle: true,
+    headerShown: false,
 }
 
 const loginScreenOptions: NativeStackNavigationOptions = {
@@ -36,6 +35,7 @@ const loginScreenOptions: NativeStackNavigationOptions = {
 }
 
 const signUpScreenOptions: NativeStackNavigationOptions = {
-    title: "Crea un account"
+    title: "Registrazione",
+    headerShown: true
 }
 
