@@ -1,4 +1,4 @@
-import React, {ComponentType, FC} from "react";
+import React, {ComponentType} from "react";
 import {Text, View} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {UserSelector} from "../store/user/user.selector";

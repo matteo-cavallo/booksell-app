@@ -4,12 +4,11 @@ import {HomeStackScreen} from "./home/homeStack";
 import {Theme} from "../../styles/style";
 import {Ionicons} from "@expo/vector-icons";
 import {ProfileStackScreen} from "./profile/profileStack";
-import {NativeStackNavigationOptions, NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {useSelector} from "react-redux";
 import {AuthenticationSelector} from "../../store/authentication/authenticationSlice";
-import {useNavigation} from "@react-navigation/native";
 import {RootStackParamList} from "../../Root";
-import {withAuthentication} from "../../utils/authentication.HOC";
+import {withAuthentication} from "../../utils/withAuthentication";
 
 export type MainTabParams = {
     HomeTab: undefined,
@@ -26,6 +25,7 @@ export const MainTabNavigator: FC<Props> = ({navigation}) => {
     const Tab = createBottomTabNavigator<MainTabParams>()
 
     const showAuthenticationScreen = useSelector(AuthenticationSelector.selectShowLogin)
+
     useEffect(() => {
         if(showAuthenticationScreen){
             navigation.navigate("LoginAndRegistration")

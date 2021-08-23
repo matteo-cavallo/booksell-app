@@ -1,23 +1,19 @@
 import {
-    Alert,
     Button,
-    KeyboardAvoidingView,
-    ScrollView,
     StyleSheet,
     Text,
     TextInput,
     View
 } from 'react-native';
 import React, {FC, useEffect, useState} from "react";
-import {ButtonComponent} from "../../components/button.component";
-import {Theme} from "../../styles/style";
-import {useNavigation} from '@react-navigation/native'
+import {ButtonComponent} from "../../../components/button.component";
+import {Theme} from "../../../styles/style";
 import {NativeStackNavigationProp} from '@react-navigation/native-stack'
-import {FBAuth} from "../../firebase/firebase.config";
 import {useDispatch} from "react-redux";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {AuthenticationActions} from "../../store/authentication/authentication.actions";
-import {LoginAndRegistrationParams} from "./loginAndRegistration.stack";
+import {AuthenticationActions} from "../../../store/authentication/authentication.actions";
+import {LoginAndRegistrationParams} from "../loginAndRegistration.stack";
+import { hideAuthenticationScreen } from '../../../store/authentication/authenticationSlice';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationParams, "Login">
 type Props = {
@@ -34,7 +30,7 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
 
     const [canLogin, setCanLogin] = useState(false)
 
-    function handleLogin(){
+    const handleLogin = () =>{
         // Login with Email and Password
         dispatch(AuthenticationActions.login({
             email,
@@ -42,7 +38,7 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
         }))
     }
 
-    function handleAnonymousLogin(){
+    const handleAnonymousLogin = () =>{
         dispatch(AuthenticationActions.anonymousAuthentication())
     }
 
@@ -60,7 +56,10 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
                 <View style={{alignItems: "flex-end"}}>
-                    <Button title={"Indietro"} onPress={() => navigation.goBack()} />
+                    <Button title={"Indietro"} onPress={() => {
+                        dispatch(hideAuthenticationScreen())
+                        navigation.goBack()
+                    }} />
                 </View>
                 <Text style={[Theme.Styles.largeTitle, styles.title]}>Bookshare</Text>
                 <Text style={[Theme.Styles.body, styles.subtitle]}>Un posto dove puoi vendere e comprare i libri che ami.</Text>

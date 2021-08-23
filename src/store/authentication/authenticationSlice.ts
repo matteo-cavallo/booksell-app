@@ -1,9 +1,5 @@
-import {createAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {FBAuth} from "../../firebase/firebase.config";
-import {Alert} from "react-native";
+import {createSlice} from "@reduxjs/toolkit";
 import {AuthenticationActions} from "./authentication.actions";
-import firebase from 'firebase/app'
-import {useNavigation} from "@react-navigation/native";
 import {RootState} from "../config";
 
 export interface AuthenticationState {
@@ -17,7 +13,7 @@ const initialState: AuthenticationState = {
 const authenticationSlice = createSlice({
     name: "authentication",
     initialState,
-    reducers:{
+    reducers: {
         showAuthenticationScreen: state => {
             state.showLogin = true
             console.log("Show")
@@ -27,15 +23,15 @@ const authenticationSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(AuthenticationActions.anonymousAuthentication.fulfilled,(state, action) => {
+        builder.addCase(AuthenticationActions.anonymousAuthentication.fulfilled, (state) => {
             state.showLogin = false
-        } ),
-            builder.addCase(AuthenticationActions.login.fulfilled, state => {
-                state.showLogin = false
-            }),
-            builder.addCase(AuthenticationActions.signUp.fulfilled, state => {
-                state.showLogin = false
-            })
+        })
+        builder.addCase(AuthenticationActions.login.fulfilled, state => {
+            state.showLogin = false
+        })
+        builder.addCase(AuthenticationActions.signUp.fulfilled, state => {
+            state.showLogin = false
+        })
     }
 })
 

@@ -1,8 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {FBAuth} from "../../firebase/firebase.config";
 import {Alert} from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import { showAuthenticationScreen, hideAuthenticationScreen} from "./authenticationSlice"
 
 enum ACTION {
     LOGIN = "login",

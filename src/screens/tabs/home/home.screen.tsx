@@ -1,10 +1,7 @@
-import {Button, ScrollView, Text, TextInput, View} from "react-native";
+import {ScrollView, Text, View} from "react-native";
 import React from "react";
-import {FBAuth} from "../../../firebase/firebase.config";
 import {Theme} from "../../../styles/style";
-import {useDispatch, useSelector} from "react-redux";
-import {AuthenticationActions} from "../../../store/authentication/authentication.actions";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {useSelector} from "react-redux";
 import {UserSelector} from "../../../store/user/user.selector";
 
 export const HomeScreen = () => {

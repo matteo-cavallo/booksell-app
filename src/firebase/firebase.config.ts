@@ -3,8 +3,7 @@ import "firebase/auth"
 import "firebase/firestore"
 
 
-
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyCr7pXG3DtMUgk4Nj0rUzFFIM8ExNMu31g",
     authDomain: "booksell-872c0.firebaseapp.com",
     projectId: "booksell-872c0",

@@ -1,12 +1,11 @@
 import {
     createNativeStackNavigator,
     NativeStackNavigationOptions,
-    NativeStackNavigationProp, NativeStackScreenProps
+    NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 import React, {FC, useEffect} from "react";
-import {SignUpScreen} from "./signup.screen";
-import {LoginScreen} from "./login.screen";
-import {ScreenStackProps} from "react-native-screens";
+import {SignUpScreen} from "./screens/signup.screen";
+import {LoginScreen} from "./screens/login.screen";
 import {useSelector} from "react-redux";
 import {AuthenticationSelector} from "../../store/authentication/authenticationSlice";
 import {RootStackParamList} from "../../Root";

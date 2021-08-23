@@ -1,15 +1,8 @@
-import {Button, ScrollView, Text, View} from "react-native";
+import {Button, ScrollView, View} from "react-native";
 import React from "react";
-import {FBAuth} from "../../../firebase/firebase.config";
-import {Theme} from "../../../styles/style";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {AuthenticationActions} from "../../../store/authentication/authentication.actions";
-import { SafeAreaView } from "react-native-safe-area-context";
-import {useNavigation} from "@react-navigation/native";
-import {RootStackParamList} from "../../../Root";
-import {showAuthenticationScreen} from "../../../store/authentication/authenticationSlice";
-import {UserSelector} from "../../../store/user/user.selector";
-import {withAuthentication} from "../../../utils/authentication.HOC";
+
 
 const ProfileScreen = () => {
 

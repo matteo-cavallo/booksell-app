@@ -1,30 +1,24 @@
 import {
-    Alert,
-    Button,
-    KeyboardAvoidingView,
     SafeAreaView,
     StyleSheet,
-    Text,
     TextInput,
-    TouchableOpacity,
     View
 } from 'react-native';
 import React, {FC, useEffect, useState} from "react";
-import {ButtonComponent} from "../../components/button.component";
-import {Theme} from "../../styles/style";
+import {ButtonComponent} from "../../../components/button.component";
+import {Theme} from "../../../styles/style";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {FBAuth} from "../../firebase/firebase.config";
 import {useDispatch} from "react-redux";
-import {AuthenticationActions} from "../../store/authentication/authentication.actions";
-import {LoginAndRegistrationProps} from "./loginAndRegistration.stack";
+import {AuthenticationActions} from "../../../store/authentication/authentication.actions";
+import {LoginAndRegistrationParams} from "../loginAndRegistration.stack";
 
 
-type SignUpScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationProps, "SignUp">
+type SignUpScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationParams, "SignUp">
 type Props = {
     navigation: SignUpScreenNavigationProp
 }
 
-export const SignUpScreen: FC<Props> = ({navigation}) => {
+export const SignUpScreen: FC<Props> = () => {
 
     const dispatch = useDispatch()
 
