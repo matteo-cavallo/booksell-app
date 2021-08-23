@@ -9,21 +9,11 @@ import {useNavigation} from "@react-navigation/native";
 import {RootStackParamList} from "../../../Root";
 import {showAuthenticationScreen} from "../../../store/authentication/authenticationSlice";
 import {UserSelector} from "../../../store/user/user.selector";
+import {withAuthentication} from "../../../utils/authentication.HOC";
 
-export const ProfileScreen = () => {
+const ProfileScreen = () => {
 
     const dispatch = useDispatch()
-
-    const {user} = useSelector(UserSelector.getUser)
-
-
-    if (!user) {
-        return (
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                <Button title={"Login"} onPress={() => dispatch(showAuthenticationScreen())} />
-            </View>
-        )
-    }
 
     return (
         <ScrollView>
@@ -33,3 +23,5 @@ export const ProfileScreen = () => {
         </ScrollView>
     )
 }
+
+export default ProfileScreen

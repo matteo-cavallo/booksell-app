@@ -1,6 +1,7 @@
 import React from "react";
 import {createNativeStackNavigator, NativeStackNavigationOptions} from "@react-navigation/native-stack";
-import {ProfileScreen} from "./profile.screen";
+import {withAuthentication} from "../../../utils/authentication.HOC";
+import ProfileScreen from "./profile.screen";
 
 export type ProfileStackParams = {
     Profile: undefined

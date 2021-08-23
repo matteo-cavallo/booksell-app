@@ -15,11 +15,11 @@ import {useNavigation} from '@react-navigation/native'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack'
 import {FBAuth} from "../../firebase/firebase.config";
 import {useDispatch} from "react-redux";
-import {LoginAndRegistrationProps} from "./loginAndRegistration.stack";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {AuthenticationActions} from "../../store/authentication/authentication.actions";
+import {LoginAndRegistrationParams} from "./loginAndRegistration.stack";
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationProps, "Login">
+type LoginScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationParams, "Login">
 type Props = {
     navigation: LoginScreenNavigationProp
 }

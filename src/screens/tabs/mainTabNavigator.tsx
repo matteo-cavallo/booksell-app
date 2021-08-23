@@ -5,11 +5,11 @@ import {Theme} from "../../styles/style";
 import {Ionicons} from "@expo/vector-icons";
 import {ProfileStackScreen} from "./profile/profileStack";
 import {NativeStackNavigationOptions, NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {withAuthentication} from "../../authentication/authenticationHOC";
 import {useSelector} from "react-redux";
 import {AuthenticationSelector} from "../../store/authentication/authenticationSlice";
 import {useNavigation} from "@react-navigation/native";
 import {RootStackParamList} from "../../Root";
+import {withAuthentication} from "../../utils/authentication.HOC";
 
 export type MainTabParams = {
     HomeTab: undefined,
@@ -24,20 +24,19 @@ type Props = {
 export const MainTabNavigator: FC<Props> = ({navigation}) => {
 
     const Tab = createBottomTabNavigator<MainTabParams>()
-    const AuthenticatedProfileScreen = withAuthentication(ProfileStackScreen)
 
     const showAuthenticationScreen = useSelector(AuthenticationSelector.selectShowLogin)
-
     useEffect(() => {
         if(showAuthenticationScreen){
             navigation.navigate("LoginAndRegistration")
         }
     },[showAuthenticationScreen])
 
+
     return (
         <Tab.Navigator screenOptions={tabNavigatorOptions}>
             <Tab.Screen name={"HomeTab"} component={HomeStackScreen} options={homeOptions}/>
-            <Tab.Screen name={"ProfileTab"} component={AuthenticatedProfileScreen} options={profileTabOptions}/>
+            <Tab.Screen name={"ProfileTab"} component={withAuthentication(ProfileStackScreen)} options={profileTabOptions}/>
         </Tab.Navigator>
     )
 }

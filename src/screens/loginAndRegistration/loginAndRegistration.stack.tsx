@@ -31,6 +31,7 @@ export const LoginAndRegistrationStackScreen: FC<Props> = ({navigation}) => {
     useEffect(() => {
         if(!showAuthenticationScreen){
             navigation.navigate("MainTabNavigator")
+
         }
     },[showAuthenticationScreen])
 
