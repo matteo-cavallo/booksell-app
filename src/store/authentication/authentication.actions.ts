@@ -1,13 +1,27 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {FBAuth} from "../../firebase/firebase.config";
 import {Alert} from "react-native";
-
+import {useNavigation} from "@react-navigation/native";
+import { showAuthenticationScreen, hideAuthenticationScreen} from "./authenticationSlice"
 
 enum ACTION {
     LOGIN = "login",
     SIGNUP = "signup",
-    SIGNOUT = "signOut"
+    SIGNOUT = "signOut",
+    ANONYMOUS = "anonymousAuthentication"
 }
+
+const anonymousAuthentication = createAsyncThunk(ACTION.ANONYMOUS, (arg, thunkAPI) => {
+    FBAuth.signInAnonymously()
+        .then((user) => {
+            console.log("Logged anonymously")
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            Alert.alert("Attenzione", errorMessage)
+        });
+})
 const login = createAsyncThunk(ACTION.LOGIN, (args: {email: string, password: string}, {dispatch}) => {
 
     const {email, password} = args
@@ -15,10 +29,6 @@ const login = createAsyncThunk(ACTION.LOGIN, (args: {email: string, password: st
     FBAuth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in
-            var user = userCredential.user;
-            console.log("\nUser logged in successfully ")
-            console.log(`Email: ${user?.email}`)
-            console.log(`ID: ${user?.uid}`)
         })
         .catch((error) => {
             var errorCode = error.code;
@@ -55,5 +65,6 @@ const signOut = createAsyncThunk(ACTION.SIGNOUT, arg => {
 export const AuthenticationActions = {
     login,
     signUp,
-    signOut
+    signOut,
+    anonymousAuthentication
 }

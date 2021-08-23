@@ -3,36 +3,42 @@ import firebase from "firebase/app";
 import {RootState} from "../config";
 import {UserActions} from "./user.actions";
 
+export interface User {
+    userID: string,
+    isAnonymous: boolean
+}
+
 
 export interface UserState {
-    userUid: string | null;
+    user: User | null
+    isLoading: boolean;
 }
 
 const initialState: UserState = {
-    userUid: null,
+    user: null,
+    isLoading: true,
 }
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        userChangedState: (state, action:PayloadAction<string | null>) => {
+        userChangedState: (state, action:PayloadAction<User | null>) => {
             if (action.payload) {
-                state.userUid = action.payload
-                console.log("Logged")
+                console.log("Logged with id: ", action.payload)
+                state.user = action.payload
+
             } else {
-                state.userUid = null
+                state.user = null
                 console.log("Not logged")
             }
+                state.isLoading = false
         }
     },
     extraReducers: builder => {
 
     }
 })
-
-
-export const UserSelector = {}
 
 export const {userChangedState} = userSlice.actions
 

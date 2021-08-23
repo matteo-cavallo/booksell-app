@@ -12,11 +12,7 @@ import {
 import React, {FC, useEffect, useState} from "react";
 import {ButtonComponent} from "../../components/button.component";
 import {Theme} from "../../styles/style";
-import {AuthService} from "../../firebase/auth.service";
-import {useNavigation} from "@react-navigation/native";
-import { Ionicons } from '@expo/vector-icons';
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {RootStackParamList} from "../../../App";
 import {FBAuth} from "../../firebase/firebase.config";
 import {useDispatch} from "react-redux";
 import {AuthenticationActions} from "../../store/authentication/authentication.actions";

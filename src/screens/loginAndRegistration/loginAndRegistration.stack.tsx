@@ -3,20 +3,36 @@ import {
     NativeStackNavigationOptions,
     NativeStackNavigationProp, NativeStackScreenProps
 } from "@react-navigation/native-stack";
-import React from "react";
+import React, {FC, useEffect} from "react";
 import {SignUpScreen} from "./signup.screen";
-import {RootStackParamList} from "../../../App";
 import {LoginScreen} from "./login.screen";
 import {ScreenStackProps} from "react-native-screens";
+import {useSelector} from "react-redux";
+import {AuthenticationSelector} from "../../store/authentication/authenticationSlice";
+import {RootStackParamList} from "../../Root";
 
-export type LoginAndRegistrationProps = {
+export type LoginAndRegistrationParams = {
     Login: undefined;
     SignUp: undefined;
 }
 
-export const LoginAndRegistrationStackScreen = () => {
+type LoginAndRegistrationProps = NativeStackNavigationProp<RootStackParamList, "LoginAndRegistration">
+type Props = {
+    navigation: LoginAndRegistrationProps
+}
 
-    const Stack = createNativeStackNavigator<LoginAndRegistrationProps>()
+export const LoginAndRegistrationStackScreen: FC<Props> = ({navigation}) => {
+
+    const showAuthenticationScreen = useSelector(AuthenticationSelector.selectShowLogin)
+
+    const Stack = createNativeStackNavigator<LoginAndRegistrationParams>()
+
+
+    useEffect(() => {
+        if(!showAuthenticationScreen){
+            navigation.navigate("MainTabNavigator")
+        }
+    },[showAuthenticationScreen])
 
     return (
         <Stack.Navigator screenOptions={screenOptions}>

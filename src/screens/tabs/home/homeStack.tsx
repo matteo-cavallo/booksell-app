@@ -18,6 +18,4 @@ export const HomeStackScreen = () => {
 }
 
 const screenOptions: NativeStackNavigationOptions = {
-    headerShown: true,
-    headerLargeTitle: true,
 }

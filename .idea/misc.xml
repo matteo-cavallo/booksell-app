@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/node_modules/@react-native-community/cli-platform-android" />
     <file type="web" url="file://$PROJECT_DIR$/node_modules/@unimodules/core" />
+    <file type="web" url="file://$PROJECT_DIR$/node_modules/expo-constants/scripts" />
   </component>
 </project>

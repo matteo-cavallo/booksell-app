@@ -9,13 +9,13 @@ import {UserSelector} from "../../../store/user/user.selector";
 
 export const HomeScreen = () => {
 
-
     const user = useSelector(UserSelector.getUser)
 
     return (
         <ScrollView>
             <View style={{padding: 16}}>
-                <Text style={Theme.Styles.body}>{user.userUid}</Text>
+                <Text style={Theme.Styles.body}>{user.user?.userID}</Text>
+                <Text>{user.user?.isAnonymous ? "Anonimo": ""}</Text>
             </View>
         </ScrollView>
     )

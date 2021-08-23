@@ -13,12 +13,11 @@ import {ButtonComponent} from "../../components/button.component";
 import {Theme} from "../../styles/style";
 import {useNavigation} from '@react-navigation/native'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack'
-import {RootStackParamList} from "../../../App";
 import {FBAuth} from "../../firebase/firebase.config";
 import {useDispatch} from "react-redux";
-import {AuthenticationActions} from "../../store/authentication/authentication.actions";
 import {LoginAndRegistrationProps} from "./loginAndRegistration.stack";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {AuthenticationActions} from "../../store/authentication/authentication.actions";
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationProps, "Login">
 type Props = {
@@ -43,6 +42,10 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
         }))
     }
 
+    function handleAnonymousLogin(){
+        dispatch(AuthenticationActions.anonymousAuthentication())
+    }
+
     // Check if Login is Enabled
     useEffect(() => {
         if(email.length != 0 && password.length != 0){
@@ -56,6 +59,9 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
     return (
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
+                <View style={{alignItems: "flex-end"}}>
+                    <Button title={"Indietro"} onPress={() => navigation.goBack()} />
+                </View>
                 <Text style={[Theme.Styles.largeTitle, styles.title]}>Bookshare</Text>
                 <Text style={[Theme.Styles.body, styles.subtitle]}>Un posto dove puoi vendere e comprare i libri che ami.</Text>
                 <View style={styles.form}>
@@ -77,7 +83,8 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
                 </View>
                 <View>
                     <ButtonComponent title={"Login"} onPress={handleLogin} disabled={!canLogin} customStyle={{marginBottom: 16}}/>
-                    <Button title={"Non hai un profilo?"} onPress={() => navigation.navigate("SignUp")}/>
+                    <ButtonComponent title={"Crea un account"} onPress={() => navigation.navigate("SignUp")} customStyle={{marginBottom: 16, backgroundColor: Theme.Colors.lightGray}} titleColor={Theme.Colors.primary}/>
+                    <Button title={"Entra come ospite"} onPress={handleAnonymousLogin}/>
                 </View>
             </View>
         </SafeAreaView>
