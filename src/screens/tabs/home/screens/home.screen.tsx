@@ -1,8 +1,8 @@
 import {ScrollView, Text, View} from "react-native";
 import React from "react";
-import {Theme} from "../../../styles/style";
+import {Theme} from "../../../../styles/style";
 import {useSelector} from "react-redux";
-import {UserSelector} from "../../../store/user/user.selector";
+import {UserSelector} from "../../../../store/user/user.selector";
 
 export const HomeScreen = () => {
 

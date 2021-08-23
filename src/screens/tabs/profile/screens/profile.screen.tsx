@@ -1,7 +1,7 @@
 import {Button, ScrollView, View} from "react-native";
 import React from "react";
 import {useDispatch} from "react-redux";
-import {AuthenticationActions} from "../../../store/authentication/authentication.actions";
+import {AuthenticationActions} from "../../../../store/authentication/authentication.actions";
 
 
 const ProfileScreen = () => {
