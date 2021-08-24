@@ -25,12 +25,11 @@ export const userSlice = createSlice({
     reducers: {
         userChangedState: (state, action:PayloadAction<User | null>) => {
             if (action.payload) {
-                console.log("Logged with id: ", action.payload)
                 state.user = action.payload
-
+                console.log("userSlice.userChangedState: user = ", action.payload)
             } else {
                 state.user = null
-                console.log("Not logged")
+                console.log("userSlice.userChangedState: user = null")
             }
                 state.isLoading = false
         }

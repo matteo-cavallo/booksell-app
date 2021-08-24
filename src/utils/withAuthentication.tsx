@@ -22,7 +22,7 @@ export const withAuthentication =  (WrappedComponent: ComponentType) => {
         </View>
     )
 
-    if(!user){
+    if(user?.isAnonymous){
         // User already logged. Show wrapped component.
         return Component
     }

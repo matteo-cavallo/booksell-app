@@ -83,7 +83,6 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
                 <View>
                     <ButtonComponent title={"Login"} onPress={handleLogin} disabled={!canLogin} customStyle={{marginBottom: 16}}/>
                     <ButtonComponent title={"Crea un account"} onPress={() => navigation.navigate("SignUp")} customStyle={{marginBottom: 16, backgroundColor: Theme.Colors.lightGray}} titleColor={Theme.Colors.primary}/>
-                    <Button title={"Entra come ospite"} onPress={handleAnonymousLogin}/>
                 </View>
             </View>
         </SafeAreaView>
