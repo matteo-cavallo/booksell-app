@@ -13,7 +13,7 @@ import {useDispatch} from "react-redux";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {AuthenticationActions} from "../../../store/authentication/authentication.actions";
 import {LoginAndRegistrationParams} from "../loginAndRegistration.stack";
-import { hideAuthenticationScreen } from '../../../store/authentication/authenticationSlice';
+import {AuthenticationSliceActions} from "../../../store/authentication/authenticationSlice";
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationParams, "Login">
 type Props = {
@@ -57,7 +57,7 @@ export const LoginScreen: FC<Props> = ({navigation}) => {
             <View style={styles.container}>
                 <View style={{alignItems: "flex-end"}}>
                     <Button title={"Indietro"} onPress={() => {
-                        dispatch(hideAuthenticationScreen())
+                        dispatch(AuthenticationSliceActions.hideAuthenticationScreen())
                         navigation.goBack()
                     }} />
                 </View>

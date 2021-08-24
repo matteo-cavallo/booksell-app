@@ -4,11 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {UserSelector} from "../store/user/user.selector";
 import {Theme} from "../styles/style";
 import {ButtonComponent} from "../components/button.component";
-import {showAuthenticationScreen} from "../store/authentication/authenticationSlice";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {AuthenticationSliceActions} from "../store/authentication/authenticationSlice";
 
 export const withAuthentication =  (WrappedComponent: ComponentType) => {
 
-    const {user} = useSelector(UserSelector.getUser)
+    const {isAnonymous} = useSelector(UserSelector.getUser)
     const dispatch = useDispatch()
 
     const Component = () => (
@@ -17,16 +18,14 @@ export const withAuthentication =  (WrappedComponent: ComponentType) => {
             <Text style={Theme.Styles.largeTitle}>Esegui l'accesso</Text>
             <Text>Crea un account oppure esegui l'accesso.</Text>
                 <ButtonComponent title={"Vai alla pagina di login"} customStyle={{width: '100%', marginTop: 16}}
-                    onPress={() => dispatch(showAuthenticationScreen())}
+                    onPress={() => dispatch(AuthenticationSliceActions.showAuthenticationScreen())}
                 />
         </View>
     )
 
-    if(user?.isAnonymous){
-        // User already logged. Show wrapped component.
+    if (isAnonymous) {
         return Component
+    } else {
+        return WrappedComponent
     }
-
-    // Show wrapped component
-    return WrappedComponent
 }

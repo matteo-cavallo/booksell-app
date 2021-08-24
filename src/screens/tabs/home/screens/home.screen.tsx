@@ -11,8 +11,8 @@ export const HomeScreen = () => {
     return (
         <ScrollView>
             <View style={{padding: 16}}>
-                <Text style={Theme.Styles.body}>{user.user?.userID}</Text>
-                <Text>{user.user?.isAnonymous ? "Anonimo": ""}</Text>
+                <Text style={Theme.Styles.body}>{user.userId}</Text>
+                <Text>{user.isAnonymous ? "Anonimo": ""}</Text>
             </View>
         </ScrollView>
     )

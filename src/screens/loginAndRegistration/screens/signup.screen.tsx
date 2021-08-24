@@ -1,5 +1,6 @@
 import {
-    SafeAreaView,
+    KeyboardAvoidingView, Platform,
+    SafeAreaView, ScrollView,
     StyleSheet,
     TextInput,
     View
@@ -11,6 +12,7 @@ import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {useDispatch} from "react-redux";
 import {AuthenticationActions} from "../../../store/authentication/authentication.actions";
 import {LoginAndRegistrationParams} from "../loginAndRegistration.stack";
+import {RegistrationActions} from "../../../store/registration/registration.slice";
 
 
 type SignUpScreenNavigationProp = NativeStackNavigationProp<LoginAndRegistrationParams, "SignUp">
@@ -18,39 +20,53 @@ type Props = {
     navigation: SignUpScreenNavigationProp
 }
 
-export const SignUpScreen: FC<Props> = () => {
+export const SignUpScreen: FC<Props> = ({navigation}) => {
 
     const dispatch = useDispatch()
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    const [email, setEmail] = useState("prova@gmail.com")
+    const [password, setPassword] = useState("prova")
+    const [confirmPassword, setConfirmPassword] = useState("prova")
 
     const [canSignUp, setCanSignUp] = useState(false)
 
-    function handleSignUp(){
+    const handleSignUp = async () => {
         // Login with Email and Password
-        dispatch(AuthenticationActions.signUp({
-            email,
-            password
+        dispatch(RegistrationActions.setFirstStep({
+            email: email,
+            password: password
         }))
+
+        await dispatch(AuthenticationActions.signUp({
+            email,
+            password,
+            completion: result => {
+                if (result) {
+                    console.log("Next Step")
+                    navigation.navigate("UserDetails")
+                } else {
+                    console.log("Sign up failed")
+                }
+            }
+        }))
+
     }
 
     // Check if SignUp is Enabled
     useEffect(() => {
-        if(email.length != 0 &&
+        if (email.length != 0 &&
             password.length != 0 &&
             confirmPassword.length != 0 &&
             password == confirmPassword
-        ){
+        ) {
             setCanSignUp(true)
             return
         }
         setCanSignUp(false)
-    },[email, password, confirmPassword])
+    }, [email, password, confirmPassword])
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
                 <View style={styles.form}>
                     <TextInput placeholder={"Email"}
@@ -65,16 +81,19 @@ export const SignUpScreen: FC<Props> = () => {
                                onChangeText={setPassword}
                                secureTextEntry={true}
                                style={Theme.Styles.centerTextField}
-                               //textContentType={"newPassword"}
+                        //textContentType={"newPassword"}
                     />
                     <TextInput placeholder={"Conferma password"}
                                value={confirmPassword}
                                onChangeText={setConfirmPassword}
                                secureTextEntry={true}
                                style={Theme.Styles.bottomTextField}
-                               //textContentType={"newPassword"}
+                                textContentType={"password"}
                     />
-                    <ButtonComponent title={"Crea profilo"} onPress={handleSignUp} disabled={!canSignUp} customStyle={{marginTop: 16}}/>
+                </View>
+                <View style={styles.form}>
+                    <ButtonComponent title={"Avanti"} onPress={handleSignUp} disabled={!canSignUp}
+                                     customStyle={{marginTop: 16}}/>
                 </View>
             </View>
         </SafeAreaView>
@@ -84,8 +103,9 @@ export const SignUpScreen: FC<Props> = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 16,
-        alignItems: "flex-start",
-        justifyContent: "flex-start",
+        alignItems: "center",
+        flex: 1,
+        justifyContent: "space-between",
     },
     title: {
         fontSize: 34,

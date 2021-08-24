@@ -41,7 +41,7 @@ export const MainTabNavigator: FC<Props> = ({navigation}) => {
         <Tab.Navigator screenOptions={tabNavigatorOptions}>
             <Tab.Screen name={"HomeTab"} component={HomeStackScreen} options={homeOptions}/>
             <Tab.Screen name={"ExploreTab"} component={ExploreStackScreen} options={exploreOptions}/>
-            <Tab.Screen name={"SellTab"} component={SellStackScreen} options={sellOptions}/>
+            <Tab.Screen name={"SellTab"} component={withAuthentication(SellStackScreen)} options={sellOptions}/>
             <Tab.Screen name={"ProfileTab"} component={withAuthentication(ProfileStackScreen)} options={profileTabOptions}/>
         </Tab.Navigator>
     )

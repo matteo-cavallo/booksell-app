@@ -23,15 +23,6 @@ const authenticationSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(AuthenticationActions.anonymousAuthentication.fulfilled, (state) => {
-            state.showLogin = false
-        })
-        builder.addCase(AuthenticationActions.login.fulfilled, state => {
-            state.showLogin = false
-        })
-        builder.addCase(AuthenticationActions.signUp.fulfilled, state => {
-            state.showLogin = false
-        })
     }
 })
 
@@ -43,7 +34,4 @@ export const AuthenticationSelector = {
 
 export const authenticationReducer = authenticationSlice.reducer
 
-export const {
-    hideAuthenticationScreen,
-    showAuthenticationScreen
-} = authenticationSlice.actions
+export const AuthenticationSliceActions = authenticationSlice.actions

@@ -1,9 +1,12 @@
 export interface User {
-    uid:string,
-    email:string,
-    name:string,
-    surname:string,
-    birthday:string,
-    address:string,
-    books: string[] //books uid
+    email:string;
+    firstName:string;
+    lastName:string;
+    birthday?:Date;
+    location?:{
+        address: string;
+        latitude: number;
+        longitude: number;
+    };
+    books?: string[] //books uid
 }
