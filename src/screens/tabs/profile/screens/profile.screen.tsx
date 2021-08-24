@@ -4,12 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {AuthenticationActions} from "../../../../store/authentication/authentication.actions";
 import {UserSelector} from "../../../../store/user/user.selector";
 import {Theme} from "../../../../styles/style";
-
+import {withAuthentication} from "../../../../utils/withAuthentication";
 
 const ProfileScreen = () => {
 
     const dispatch = useDispatch()
-
     const {user} = useSelector(UserSelector.getUser)
 
     return (
@@ -23,4 +22,6 @@ const ProfileScreen = () => {
     )
 }
 
-export default ProfileScreen
+
+
+export default  withAuthentication(ProfileScreen)
